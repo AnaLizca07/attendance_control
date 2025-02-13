@@ -8,9 +8,14 @@ class DeviceController:
     def __init__(self, connector):
         self.connector = connector
         self.view = ConsoleView()
+        self.device_info_fetched = False
+        self.device_info = None
 
     def get_device_info(self):
         """Get and process device information."""
+        if self.device_info_fetched:
+            return self.device_info
+
         conn = None
         try:
             # Attempt connection

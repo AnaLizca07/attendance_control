@@ -1,0 +1,205 @@
+{
+    "9": [
+        {
+            "Usuario": "Felipe Castro",
+            "Id usuario": "9",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "06:59:59",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "5": [
+        {
+            "Usuario": "Mfernanda Lpez",
+            "Id usuario": "5",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:02:33",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "21": [
+        {
+            "Usuario": "Victor Rojas",
+            "Id usuario": "21",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:07:06",
+                    "tipo": "Entrada"
+                },
+                {
+                    "hora": "07:07:08",
+                    "tipo": "Salida"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Completo"
+        }
+    ],
+    "2": [
+        {
+            "Usuario": "Daruin Herrera",
+            "Id usuario": "2",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:08:55",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "28": [
+        {
+            "Usuario": "Ana Lizcano",
+            "Id usuario": "28",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:09:37",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "15": [
+        {
+            "Usuario": "Laura B",
+            "Id usuario": "15",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:09:42",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "24": [
+        {
+            "Usuario": "David Ros",
+            "Id usuario": "24",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:13:32",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "4": [
+        {
+            "Usuario": "Dj Arce",
+            "Id usuario": "4",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:14:33",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "25": [
+        {
+            "Usuario": "Luisa 25",
+            "Id usuario": "25",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:15:12",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "12": [
+        {
+            "Usuario": "Santiago Vega",
+            "Id usuario": "12",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:15:56",
+                    "tipo": "Entrada"
+                },
+                {
+                    "hora": "07:15:57",
+                    "tipo": "Salida"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Completo"
+        }
+    ],
+    "27": [
+        {
+            "Usuario": "Sergio Chica",
+            "Id usuario": "27",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:18:32",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "1": [
+        {
+            "Usuario": "German Huertas",
+            "Id usuario": "1",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:18:40",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ],
+    "3": [
+        {
+            "Usuario": "Geovany C",
+            "Id usuario": "3",
+            "Fecha": "2025-02-13",
+            "Registros": [
+                {
+                    "hora": "07:22:38",
+                    "tipo": "Entrada"
+                }
+            ],
+            "Total horas": "0.00",
+            "Estado": "Incompleto"
+        }
+    ]
+}

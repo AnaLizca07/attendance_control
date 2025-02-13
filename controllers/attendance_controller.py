@@ -2,13 +2,21 @@ from models.user import User
 from models.attendance import Attendance
 from views.console_views import ConsoleView
 from config.settings import get_json_filename
+from controllers.device_controller import DeviceController
 
 class AttendanceController:
     def __init__(self, connector):
         self.connector = connector
         self.view = ConsoleView()
+        self.device_controller = DeviceController(connector)
+        self.device_info_displayed = False
 
     def process_attendance(self, specific_date):
+
+        if not self.device_info_displayed:
+            self.device_controller.get_device_info()
+            self.device_info_displayed = True
+            
         try:
             conn = self.connector.connect()
             if not conn:
