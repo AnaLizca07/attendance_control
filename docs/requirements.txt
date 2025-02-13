@@ -1,12 +1,11 @@
 Cython
 distlib
 filelock
-pip
 platformdirs
 ply
 pyzk
-setuptools
 shiboken6
 six
+thriftpy2
 zk
 zklib

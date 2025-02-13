@@ -1,16 +1,20 @@
 from models.device import Device
-from views.console_views import ConsoleView
-from config.settings import get_json_filename_device
+from views.to_JSON import ToJSON
 import os
 import re
 
 class DeviceController: 
     def __init__(self, connector):
         self.connector = connector
-        self.view = ConsoleView()
+        self.view = ToJSON()
+        self.device_info_fetched = False
+        self.device_info = None
 
     def get_device_info(self):
         """Get and process device information."""
+        if self.device_info_fetched:
+            return self.device_info
+
         conn = None
         try:
             # Attempt connection
@@ -30,9 +34,6 @@ class DeviceController:
                 'device': device_id,
                 'description': device_info.get('description', {})
             }
-
-            # Display information
-            self.view.display_device_info(device_info)
 
             # Generate filename with timestamp
             json_filename = f"device_{sanitized_device_id}.json"

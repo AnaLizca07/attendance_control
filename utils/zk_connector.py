@@ -14,16 +14,13 @@ class ZKConnector:
     def connect(self):
         try:
             self.conn = self.zk.connect()
-            print('Desactivando dispositivo')
             self.zk.disable_device()
             return self.conn
         except Exception as e:
-            print(f"Error al conectar con el dispositivo: {e}")
+            print(f"Error connecting to device: {e}")
             return None
         
     def disconnect(self):
         if self.conn:
-            print('Activando dispositivo')
             self.zk.enable_device()
             self.zk.disconnect()
-            print('Desconectado del dispositivo')
