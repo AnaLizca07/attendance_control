@@ -24,3 +24,15 @@ def get_json_filename(date):
     date_str = date.strftime('%Y%m%d')
     timestamp = datetime.now().strftime('%H%M%S')
     return os.path.join(OUTPUT_DIR, f'attendance_{date_str}_{timestamp}.json')
+
+def get_json_filename_device(device_id):
+    # Clean device_id by replacing invalid filename characters
+    clean_device_id = "".join(c if c.isalnum() else "_" for c in str(device_id))
+    
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"device_{clean_device_id}_{timestamp}.json"
+    
+    # Create logs directory if it doesn't exist
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    
+    return os.path.join('device_info', filename)

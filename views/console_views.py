@@ -23,6 +23,13 @@ class ConsoleView:
         print("-" * 30)
 
     @staticmethod
+    def display_device_info(device_info):
+        print("\n" + "="*60)
+        print(f"Nombre del dispositivo: {device_info.get('device_name', 'Desconocido')}")
+        print(f"  Descripción: {device_info.get('description', {})}")
+        print("="*60)
+
+    @staticmethod
     def save_json_output(data, filename):
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)

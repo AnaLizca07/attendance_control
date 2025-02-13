@@ -1,4 +1,3 @@
-# controllers/attendance_controller.py
 from models.user import User
 from models.attendance import Attendance
 from views.console_views import ConsoleView
