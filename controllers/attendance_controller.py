@@ -1,9 +1,12 @@
+import os
+import json
 from models.user import User
 from models.attendance import Attendance
 from views.console_views import ConsoleView
 from config.settings import get_json_filename
 
 class AttendanceController:
+    
     def __init__(self, connector):
         self.connector = connector
         self.view = ConsoleView()
@@ -24,24 +27,40 @@ class AttendanceController:
             attendance_by_user = Attendance.organize_attendance_by_user(filtered_attendance)
             
             # Procesar y mostrar resultados
-            json_output = {}
+            json_filename = get_json_filename(specific_date)
+
+            try:
+                with open(json_filename, "r") as file:
+                    json_output = json.load(file)
+            except (FileNotFoundError, json.JSONDecodeError):
+                json_output = {}
             
             for user_id, dates in attendance_by_user.items():
                 user_info = users_info.get(user_id, {})
                 str_user_id = str(user_id)
-                
+
                 # Procesar registros incluyendo información del usuario
                 processed_records = Attendance.process_attendance_records(dates, user_id, user_info)
-                json_output[str_user_id] = processed_records
+
+                if str_user_id in json_output:
+                    existing_records = json_output[str_user_id]
+
+                    existing_set = {json.dumps(record, sort_keys=True) for record in existing_records}
+
+                    unique_records = [record for record in processed_records if json.dumps(record, sort_keys=True) not in existing_set]
+
+                    if unique_records:
+                        json_output[str_user_id].extend(unique_records)
+                else: 
+                    json_output[str_user_id] = processed_records
                 
                 # Mostrar en consola
                 self.view.display_user_info(user_id, user_info)
                 for date, times in sorted(dates.items()):
                     self.view.display_attendance(date, times)
             
-            # Generar nombre de archivo y guardar JSON
-            json_filename = get_json_filename(specific_date)
-            self.view.save_json_output(json_output, json_filename)
+            with open(json_filename, "w") as file:
+                json.dump(json_output, file, indent=4)
             
             print(f"\nTotal registros encontrados: {len(filtered_attendance)}")
             
