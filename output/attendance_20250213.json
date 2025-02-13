@@ -1,213 +1,245 @@
 {
     "9": [
         {
-            "Usuario": "Felipe Castro",
-            "Id usuario": "9",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Felipe Castro",
+            "User ID": "9",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "06:59:59",
-                    "tipo": "Entrada"
+                    "hour": "06:59:59",
+                    "type": 1
+                },
+                {
+                    "hour": "12:32:38",
+                    "type": 2
+                },
+                {
+                    "hour": "14:02:10",
+                    "type": 2
+                },
+                {
+                    "hour": "14:02:11",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "7.04",
+            "Status": 1
         }
     ],
     "5": [
         {
-            "Usuario": "Mfernanda Lpez",
-            "Id usuario": "5",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Mfernanda Lpez",
+            "User ID": "5",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:02:33",
-                    "tipo": "Entrada"
+                    "hour": "07:02:33",
+                    "type": 1
+                },
+                {
+                    "hour": "12:37:32",
+                    "type": 2
+                },
+                {
+                    "hour": "14:10:27",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "7.13",
+            "Status": 1
         }
     ],
     "21": [
         {
-            "Usuario": "Victor Rojas",
-            "Id usuario": "21",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Victor Rojas",
+            "User ID": "21",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:07:06",
-                    "tipo": "Entrada"
+                    "hour": "07:07:06",
+                    "type": 1
                 },
                 {
-                    "hora": "07:07:08",
-                    "tipo": "Salida"
+                    "hour": "07:07:08",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Completo"
+            "Total hours": "0.00",
+            "Status": 1
         }
     ],
     "2": [
         {
-            "Usuario": "Daruin Herrera",
-            "Id usuario": "2",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Daruin Herrera",
+            "User ID": "2",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:08:55",
-                    "tipo": "Entrada"
+                    "hour": "07:08:55",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "28": [
         {
-            "Usuario": "Ana Lizcano",
-            "Id usuario": "28",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Ana Lizcano",
+            "User ID": "28",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:09:37",
-                    "tipo": "Entrada"
+                    "hour": "07:09:37",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "15": [
         {
-            "Usuario": "Laura B",
-            "Id usuario": "15",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Laura B",
+            "User ID": "15",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:09:42",
-                    "tipo": "Entrada"
+                    "hour": "07:09:42",
+                    "type": 1
+                },
+                {
+                    "hour": "12:36:00",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "5.44",
+            "Status": 1
         }
     ],
     "24": [
         {
-            "Usuario": "David Ros",
-            "Id usuario": "24",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "David Ros",
+            "User ID": "24",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:13:32",
-                    "tipo": "Entrada"
+                    "hour": "07:13:32",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "4": [
         {
-            "Usuario": "Dj Arce",
-            "Id usuario": "4",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Dj Arce",
+            "User ID": "4",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:14:33",
-                    "tipo": "Entrada"
+                    "hour": "07:14:33",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "25": [
         {
-            "Usuario": "Luisa 25",
-            "Id usuario": "25",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Luisa 25",
+            "User ID": "25",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:15:12",
-                    "tipo": "Entrada"
+                    "hour": "07:15:12",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "12": [
         {
-            "Usuario": "Santiago Vega",
-            "Id usuario": "12",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Santiago Vega",
+            "User ID": "12",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:15:56",
-                    "tipo": "Entrada"
+                    "hour": "07:15:56",
+                    "type": 1
                 },
                 {
-                    "hora": "07:15:57",
-                    "tipo": "Salida"
+                    "hour": "07:15:57",
+                    "type": 2
+                },
+                {
+                    "hour": "12:30:19",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Completo"
+            "Total hours": "5.24",
+            "Status": 1
         }
     ],
     "27": [
         {
-            "Usuario": "Sergio Chica",
-            "Id usuario": "27",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Sergio Chica",
+            "User ID": "27",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:18:32",
-                    "tipo": "Entrada"
+                    "hour": "07:18:32",
+                    "type": 1
                 },
                 {
-                    "hora": "10:47:38",
-                    "tipo": "Receso 2"
+                    "hour": "10:47:38",
+                    "type": 2
                 },
                 {
-                    "hora": "10:59:17",
-                    "tipo": "Salida"
+                    "hour": "10:59:17",
+                    "type": 0
                 }
             ],
-            "Total horas": "3.68",
-            "Estado": "Completo"
+            "Total hours": "3.68",
+            "Status": 1
         }
     ],
     "1": [
         {
-            "Usuario": "German Huertas",
-            "Id usuario": "1",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "German Huertas",
+            "User ID": "1",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:18:40",
-                    "tipo": "Entrada"
+                    "hour": "07:18:40",
+                    "type": 1
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "0.00",
+            "Status": 0
         }
     ],
     "3": [
         {
-            "Usuario": "Geovany C",
-            "Id usuario": "3",
-            "Fecha": "2025-02-13",
-            "Registros": [
+            "User": "Geovany C",
+            "User ID": "3",
+            "Date": "2025-02-13",
+            "Records": [
                 {
-                    "hora": "07:22:38",
-                    "tipo": "Entrada"
+                    "hour": "07:22:38",
+                    "type": 1
+                },
+                {
+                    "hour": "12:43:15",
+                    "type": 0
                 }
             ],
-            "Total horas": "0.00",
-            "Estado": "Incompleto"
+            "Total hours": "5.34",
+            "Status": 1
         }
     ]
 }
