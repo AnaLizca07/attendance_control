@@ -1,42 +1,45 @@
 # Attendance_Controll
 
-## Descripción
- **Attendance_Control** es un sistema de control de asistencia basado en el uso de un huellero biométrico. Su principal función es gestionar los registros de asistencia de manera eficiente, generando y almacenando los datos en archivos JSON mediante Python. Posteriormente, estos datos se envían a la nube para su almacenamiento y administración, facilitando el acceso y la supervisión en tiempo real.
+## Description
+**Attendance_Control** is an attendance control system based on the use of a biometric fingerprint scanner. Its main function is to efficiently manage attendance records, generating and storing the data in JSON files using Python. Subsequently, these data are sent to the cloud for storage and management, facilitating real-time access and supervision.
 
-## Características
-+ Registro de asistencia mediante mediante huellero biométrico.
-+ Generación automática de archvios JSON con los registros.
-+ Envío seguro de los datos a la nube para su gestión.
-+ Interfaz simple y eficiente para la administración de asistencias.
+## Features
+- Attendance registration using a biometric fingerprint scanner.
+- Automatic generation of JSON files with attendance records.
+- Secure data transfer to the cloud for management.
+- Simple and efficient interface for attendance administration.
 
-## Tecnologías Utilizadas
-+ **Python**: Para el procesamiento y generacion de los archivos JSON
-+ **Huella biométrica**: Como método principal de registro de asistencia.
-+ **Almacenamiento en la nube**: Para el control y monitoreo remoto de los datos.
+## Technologies Used
+- **Python**: For processing and generating JSON files.
+- **Biometric fingerprint scanner**: As the primary method for attendance registration.
+- **Cloud storage**: For remote control and monitoring of the data.
 
-## Instalación y Uso
-### Requisitos previos 
-Tener **Python >=3.11.3** instalado en el sistema.
-### Instalación
-1. Clonar repositorio:
-```bash
-git clone https://github.com/AnaLizca07/attendance_control.git
-```
-2. Instalar dependencias necesarias:
-```bash
-pip install -r requirements.txt
-```
-### Depencias Necesarias
-```ini
-Cython
-distlib
-filelock
-platformdirs
-ply
-pyzk
-shiboken6
-six
-thriftpy2
-zk
-zklib
-```
+## Installation and Usage
+
+### Prerequisites
+- Ensure **Python >=3.11.3** is installed on the system.
+- Ensure **pip 22.3.1** is installed on the system.
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AnaLizca07/attendance_control.git
+    ```
+2. Install the required dependencies:
+   ```bash
+   pip install --no-deps -r requirements.txt
+    ```
+### Required Dependencies
+   ```bash
+    Cython
+    distlib
+    filelock
+    pip
+    platformdirs
+    ply
+    pyzk
+    setuptools
+    shiboken6
+    six
+    zk
+    zklib
