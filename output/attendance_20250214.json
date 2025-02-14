@@ -163,5 +163,35 @@
             "Total hours": "0.00",
             "Status": 0
         }
+    ],
+    "3": [
+        {
+            "User": "Geovany C",
+            "User ID": "3",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:39:47",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "24": [
+        {
+            "User": "David Ros",
+            "User ID": "24",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "08:06:16",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
     ]
 }

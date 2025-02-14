@@ -1,3 +1,6 @@
+import os
+
+
 ZK_DEVICE = {
     'ip': '192.168.0.3',
     'port': 4370,
@@ -5,7 +8,6 @@ ZK_DEVICE = {
     'timeout': 10
 }
 
-import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
