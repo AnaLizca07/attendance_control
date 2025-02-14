@@ -1,13 +1,17 @@
 from zk import ZK
 from config.settings import ZK_DEVICE
+from zk import ZK, const
+from dotenv import load_dotenv
+import os
 
 class ZKConnector: 
     def __init__(self):
+        load_dotenv()
         self.zk = ZK(
-            ZK_DEVICE['ip'], 
-            port=ZK_DEVICE['port'], 
-            timeout=ZK_DEVICE['timeout'], 
-            password=ZK_DEVICE['password']
+            os.getenv('ZK_DEVICE_IP'), 
+            port = int(os.getenv('ZK_DEVICE_PORT')),
+            timeout = int(os.getenv('ZK_DEVICE_TIMEOUT')), 
+            password = os.getenv('ZK_DEVICE_PASSWORD')
         )
         self.conn = None
 

@@ -3,7 +3,7 @@ from models.user import User
 from models.attendance import Attendance
 from config.settings import get_json_filename
 from controllers.device_controller import DeviceController
-from views.to_JSON import ToJSON
+from config.to_JSON import ToJSON
 from datetime import datetime
 
 class AttendanceController:
