@@ -9,7 +9,7 @@ from config.time_sync import getting_date_time
 from controllers.attendance_controller import AttendanceController
 from controllers.device_controller import DeviceController
 
-EXECUTION_TIME = "07:28"
+EXECUTION_TIME = "07:38"
 
 def main():
 
@@ -28,6 +28,10 @@ schedule.every().day.at(EXECUTION_TIME).do(main)
 
 while True:    
     ntp_date , ntp_time = getting_date_time()
+    if ntp_date and ntp_time:
+        print(f"Date: {ntp_date}, Time: {ntp_time}")
+    else:
+        print("The time could not be synchronized.")
 
     if ntp_time:
 

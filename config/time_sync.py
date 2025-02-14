@@ -15,8 +15,11 @@ def getting_date_time():
         ntp_time = colombia_time.strftime("%H:%M")
 
         return ntp_date, ntp_time
+    except ntplib.NTPException:
+        print("Error: The time could not be obtained from the NTP server.")
+        return None, None
     except Exception as e:
-        print(f"Error getting date and time: {str(e)}")
+        print(f"Unexpected error: {e}")
         return None, None
 
 # Ejemplo de uso

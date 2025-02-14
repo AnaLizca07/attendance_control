@@ -7,7 +7,7 @@ class Attendance:
     @staticmethod
     def get_filtered_attendance(conn):
         attendance = conn.get_attendance()
-        ntp_date = getting_date_time()
+        ntp_date, npt_time = getting_date_time()
         current_date = datetime.strptime(ntp_date, "%Y-%m-%d")
         start_datetime = datetime.combine(current_date, time.min)
         end_datetime = datetime.combine(current_date, time.max)
