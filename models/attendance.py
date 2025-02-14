@@ -1,12 +1,14 @@
 from collections import defaultdict
 from datetime import datetime, time
+from config.time_sync import getting_date_time
 
 class Attendance:
 
     @staticmethod
     def get_filtered_attendance(conn):
         attendance = conn.get_attendance()
-        current_date = datetime.now().date()
+        ntp_date, npt_time = getting_date_time()
+        current_date = datetime.strptime(ntp_date, "%Y-%m-%d")
         start_datetime = datetime.combine(current_date, time.min)
         end_datetime = datetime.combine(current_date, time.max)
         

@@ -1,0 +1,197 @@
+{
+    "2": [
+        {
+            "User": "Daruin Herrera",
+            "User ID": "2",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "06:34:00",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "9": [
+        {
+            "User": "Felipe Castro",
+            "User ID": "9",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "06:56:23",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "21": [
+        {
+            "User": "Victor Rojas",
+            "User ID": "21",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "06:56:56",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "15": [
+        {
+            "User": "Laura B",
+            "User ID": "15",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:03:39",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "5": [
+        {
+            "User": "Mfernanda Lpez",
+            "User ID": "5",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:04:39",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "28": [
+        {
+            "User": "Ana Lizcano",
+            "User ID": "28",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:05:12",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "25": [
+        {
+            "User": "Luisa 25",
+            "User ID": "25",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:05:19",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "12": [
+        {
+            "User": "Santiago Vega",
+            "User ID": "12",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:15:09",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "4": [
+        {
+            "User": "Dj Arce",
+            "User ID": "4",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:19:45",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "27": [
+        {
+            "User": "Sergio Chica",
+            "User ID": "27",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:20:04",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "1": [
+        {
+            "User": "German Huertas",
+            "User ID": "1",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:22:57",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "3": [
+        {
+            "User": "Geovany C",
+            "User ID": "3",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "07:39:47",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ],
+    "24": [
+        {
+            "User": "David Ros",
+            "User ID": "24",
+            "Date": "2025-02-14",
+            "Records": [
+                {
+                    "hour": "08:06:16",
+                    "type": 1
+                }
+            ],
+            "Total hours": "0.00",
+            "Status": 0
+        }
+    ]
+}
