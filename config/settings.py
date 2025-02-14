@@ -1,14 +1,5 @@
 import os
 
-
-ZK_DEVICE = {
-    'ip': '192.168.0.3',
-    'port': 4370,
-    'password': 2121,
-    'timeout': 10
-}
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
 

@@ -1,5 +1,5 @@
 from models.device import Device
-from views.to_JSON import ToJSON
+from config.to_JSON import ToJSON
 import os
 import re
 
