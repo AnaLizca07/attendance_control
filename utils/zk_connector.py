@@ -1,4 +1,4 @@
-from zk import ZK, const
+from zk import ZK
 from config.settings import ZK_DEVICE
 
 class ZKConnector: 

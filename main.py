@@ -1,13 +1,10 @@
 # main.py
-import time
-import schedule
-import threading
 from datetime import datetime
 from utils.zk_connector import ZKConnector
 from config.time_sync import getting_date_time
 from controllers.attendance_controller import AttendanceController
 
-EXECUTION_TIME = "09:30"
+EXECUTION_TIME = "10:32"
 
 def main():
 
