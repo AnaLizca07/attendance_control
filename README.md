@@ -31,15 +31,18 @@
     ```
 ### Required Dependencies
    ```bash
-    Cython
-    distlib
-    filelock
-    pip
-    platformdirs
-    ply
-    pyzk
-    setuptools
-    shiboken6
-    six
-    zk
-    zklib
+    ntplib  
+    pip 
+    pytz 
+    pyzk    
+    pyzmq 
+    setuptools 
+    wheel
+```
+- `ntplib`: Provides an interface for querying NTP (Network Time Protocol) servers, useful for synchronizing the system clock with time servers on the Internet.
+- `pip`: Python’s package manager, used to install, update, and manage third-party libraries and dependencies
+- `pytz`: Provides support for time zones, allowing conversion between different time zones based on the IANA time zone database.
+- `pyzk`: A library used to interact with biometric devices from the ZKTeco brand, such as fingerprint readers and access control systems.
+- `pyzmq`: A binding for ZeroMQ, an asynchronous messaging library that enables efficient communication between processes and networked computers.
+- `setuptools`: A tool for managing Python packages, providing advanced functions for installation, distribution, and development of modules.
+- `wheel`: A `setuptools` companion that enables the creation and management of `.whl` package files, making package installations faster and more efficient.

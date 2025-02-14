@@ -1,3 +1,5 @@
+from zk import ZK
+from config.settings import ZK_DEVICE
 from zk import ZK, const
 from dotenv import load_dotenv
 import os

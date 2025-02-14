@@ -8,6 +8,7 @@ from controllers.attendance_controller import AttendanceController
 from dotenv import load_dotenv
 import os
 
+EXECUTION_TIME = "10:32"
 load_dotenv()
 #EXECUTION_TIME = os.getenv('EXECUTION_TIME')
 
