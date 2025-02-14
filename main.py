@@ -1,13 +1,15 @@
 # main.py
 import time
-import schedule
 import threading
 from datetime import datetime
 from utils.zk_connector import ZKConnector
 from config.time_sync import getting_date_time
 from controllers.attendance_controller import AttendanceController
+from dotenv import load_dotenv
+import os
 
-EXECUTION_TIME = "09:30"
+load_dotenv()
+#EXECUTION_TIME = os.getenv('EXECUTION_TIME')
 
 def main():
 
@@ -24,7 +26,8 @@ def main():
 
 
 while True:
+    
     ntp_date, ntp_time = getting_date_time()
 
-    if ntp_time == EXECUTION_TIME:
+    if ntp_time == os.getenv('EXECUTION_TIME'):
         main()
