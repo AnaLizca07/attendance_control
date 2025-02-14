@@ -1,4 +1,3 @@
-from zk import const
 
 class Device:
     @staticmethod
