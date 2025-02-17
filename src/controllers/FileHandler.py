@@ -7,8 +7,9 @@ from models.device.DeviceInfo import DeviceInfo
 from utils.FileNameSanitizer import FileNameSanitizer
     
 class DeviceFileManager:
-    def __init__(self, base_dir: str = 'output'):
-        self.base_dir = Path(base_dir)
+    def __init__(self):
+        self.documents_dir = Path.home()/ 'Documents'
+        self.base_dir = self.documents_dir / 'output'
         self.device_dir = self.base_dir / 'device_info'
         self.ensure_directory()
         
@@ -30,6 +31,7 @@ class DeviceFileManager:
             
             json_output = {
                 'device_name': device_info.device_name,
+                'device_id': device_info.device_id,
                 'description': {
                     'serial_number': device_info.description.serial_number,
                     'mac_address': device_info.description.mac_address,
@@ -51,7 +53,15 @@ class DeviceFileManager:
 
 class AttendanceFileHandler:
     def __init__(self, filename: str):
-        self.filename = filename
+            self.documents_dir = Path.home()/ 'Documents'
+            self.base_dir = self.documents_dir / 'output'
+            self.attendance_dir = self.base_dir / 'attendance'
+            self.ensure_directory()
+            self.filename = self.base_dir / filename
+
+    def ensure_directory(self) -> None:
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.attendance_dir.mkdir(exist_ok=True)
 
     def read_existing_records(self) -> Dict:
         try:
@@ -61,5 +71,22 @@ class AttendanceFileHandler:
             return {}
 
     def save_records(self, records: Dict) -> None:
-        with open(self.filename, "w") as file:
-            json.dump(records, file, indent=4)
+        try:
+            self.ensure_directory()
+            
+            print(f"\nPreparing to save records...")
+            print(f"Records structure: {type(records)}")
+            print(f"Number of users in records: {len(records)}")
+            if records:
+                sample_user = next(iter(records))
+                print(f"Sample user records: {len(records[sample_user])}")
+            
+            with open(self.filename, "w") as file:
+                json.dump(records, file, indent=4)
+            print(f"Records saved successfully to: {self.filename}")
+            
+        except Exception as e:
+            print(f"Error saving records: {e}")
+            import traceback
+            print(traceback.format_exc())
+            raise

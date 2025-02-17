@@ -1,9 +1,0 @@
-{
-    "device": "K30/ID",
-    "description": {
-        "serial_number": "A8ME211660181",
-        "mac_address": "00:17:61:11:04:87",
-        "ip": "192.168.0.3",
-        "gateway": "192.168.0.1"
-    }
-}

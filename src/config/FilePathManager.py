@@ -14,11 +14,10 @@ ZK_DEVICE = {
 
 class FilePathManager:
     def __init__(self, base_dir: Optional[str] = None):
-        self.base_dir = base_dir or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        self.output_dir = os.path.join(self.base_dir, 'output')
+        self.documents_dir = os.path.join(os.path.expanduser('~'), 'Documents')
+        self.output_dir = os.path.join(self.documents_dir, 'output')
         self.device_dir = os.path.join(self.output_dir, 'device_info')
         
-        # Crear directorios necesarios
         for directory in [self.output_dir, self.device_dir]:
             os.makedirs(directory, exist_ok=True)
     
