@@ -1,15 +1,18 @@
 from dataclasses import dataclass
 from models.device.DeviceDescription import DeviceDescription
 from typing import Dict, List, Optional
+import uuid
 
 @dataclass
 class DeviceInfo:
+    device_id : str
     device_name: str
     description: DeviceDescription
 
     @classmethod
-    def create(cls, device_name: str, description: DeviceDescription) -> 'DeviceInfo':
+    def create(cls,device_name: str, description: DeviceDescription) -> 'DeviceInfo':
         return cls(
+            device_id = str(uuid.uuid4()),
             device_name=device_name,
             description=description
         )
@@ -27,6 +30,7 @@ class DeviceInfo:
             )
             
             return cls(
+                device_id = data.get('device_id', str(uuid.uuid4())),
                 device_name=data.get('device_name', ''),
                 description=description
             )

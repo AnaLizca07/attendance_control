@@ -18,10 +18,16 @@ class ZKConnector:
             if not self.conn:
                 self.conn = self.zk.connect()
                 if self.conn:
+                    print("Successfully connected to device")
                     self.conn.disable_device()
+                else:
+                   print("Connection failed") 
             return self.conn
         except Exception as e:
             print(f"Error connecting to device: {e}")
+            print(f"Error type: {type(e)}")
+            import traceback
+            print(traceback.format_exc())
             return None
 
     def disconnect(self):

@@ -27,7 +27,10 @@ class DeviceController:
             
             if not device_info:
                 raise ValueError("No device info returned")
-                
+            
+            self.file_manager.save_device_info(device_info)
+            self._device_info = device_info
+
             return device_info
             
         except Exception as e:
@@ -37,20 +40,15 @@ class DeviceController:
         finally:
             self._close_connection(conn)
         
-    def get_device_info(self) -> bool:
+    def get_device_info(self) -> Optional[DeviceInfo]:
         try:
-            device_info = self.fetch_device_info()
-            if not device_info:
-                print("Could not fetch device info")
-                return False
-                
-            self.file_manager.save_device_info(device_info)
-            self._device_info = device_info
-            return True
-            
+            if not self._device_info:
+                self._device_info = self.fetch_device_info()
+            return self._device_info
+                    
         except Exception as e:
             self._log_error("Error in get_device_info", e)
-            return False
+            return None
             
     def _establish_connection(self):
         """Establishes connection with the device."""
