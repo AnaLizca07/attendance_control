@@ -1,6 +1,8 @@
 
 import json
+import logging
 from typing import Dict, List, Optional
+from zk.exception import ZKNetworkError
 from datetime import datetime
 from models.user.UserRepository import UserRepository
 from models.attendance.AttendanceProcessor import AttendanceProcessor
@@ -10,6 +12,7 @@ from controllers.FileHandler import AttendanceFileHandler
 from utils.to_JSON import ToJSON 
 from models.device.Device import Device
 from models.attendance.AttendanceProcessor import AttendanceProcessor
+from services.AttendanceRetry import AttendanceRetry
 
 class AttendanceController:
     def __init__(self, connector, device_controller: Optional[DeviceController] = None):
@@ -18,11 +21,23 @@ class AttendanceController:
         self.device_controller = device_controller or DeviceController(connector)
         self.view = ToJSON()
         self.device_info = None
+        self.attendance_retry = AttendanceRetry(self)
+
+    def _ensure_device_info(self) -> None:
+        if not self.device_info:
+            print("\nFetching device information...")
+            self.device_info = self.device_controller.fetch_device_info()  # Use fetch_device_info directly
+            if self.device_info:
+                print("Device information saved successfully")
+            else:
+                print("Failed to save device information")
+                raise ValueError("Could not get device info")
 
     def _get_attendance_data(self, conn) -> tuple:
         user_repo = UserRepository(self.connector)
         users_info = user_repo.get_users_info()
         
+        # Asegurarnos de que tengamos la info del dispositivo
         if not self.device_info:
             print("Getting device info in controller...")
             self.device_info = self.device_controller.get_device_info()
@@ -46,16 +61,9 @@ class AttendanceController:
             print(f"Error closing connection: {e}")
 
     def process_attendance(self) -> List:
-
         try:
             print("Starting attendance processing...")
-
-            if not self.device_info:
-                print("\nFetching device information...")
-                self.device_info = self.device_controller.fetch_device_info()
-                if not self.device_info:
-                    raise ValueError("Could not get device info")
-                print("Device information saved successfully")
+            self._ensure_device_info()
             
             print("Connecting to device...")
             conn = self.connector.connect()
@@ -74,75 +82,64 @@ class AttendanceController:
                 FilePathManager().get_json_filename(datetime.now().date())
             )
 
-            processor = AttendanceProcessor(conn,
-                    device=Device(),
-                    device_info=self.device_info)
+            processor = AttendanceProcessor(conn, device=Device(),
+                device_info=self.device_info)
             attendance_records = processor.process_user_attendance(users_info, filtered_attendance)
-
-            attendance_records["id"] = str(int(datetime.now().timestamp()))
-
-            print("Saving records...")
+            
+            print(f"Found {len(attendance_records)} records")
             existing_records = file_handler.read_existing_records()
             merged_records = self._merge_records(existing_records, attendance_records)
+            
+            print("Saving records...")
             file_handler.save_records(merged_records)
             
             print(f"\nTotal records: {len(filtered_attendance)}")
-            return attendance_records
+            return filtered_attendance
 
-        except ConnectionError as e:
-            print(f"Connection error: {e}")
-            print(f"Error type: {type(e)}")
-            import traceback
-            print(traceback.format_exc())
+        except (ConnectionError, ZKNetworkError) as e:
+            print(f"⚠️ Connection error: {e}")
+  # Reemplaza con datos reales
+
             return []
         except Exception as e:
             print(f"Error processing attendance: {str(e)}")
+            logging.error(f"⚠️ Connection failed: {str(e)}")
+            
+            # Guardar la asistencia como pendiente
+            self.attendance_retry.save_pending_record("Datos de asistencia fallida")
+
             return []
         finally:
             print("Closing connection...")
             self._close_connection()
 
+
+
     @staticmethod
     def _merge_records(existing: Dict, new: Dict) -> Dict:
         print(f"\nMerging records...")
-
-        if not existing:
-            return new
-
-        if not new:
-            return existing
+        print(f"Existing records: {len(existing)} users")
+        print(f"New records: {len(new)} users")
+        merged = existing.copy()
         
-        print(f"Existing records: {len(existing.get('users', {}))} users")
-        print(f"New records: {len(new.get('users', {}))} users")
+        for user_id, new_records in new.items():
+            if user_id not in merged:
+                merged[user_id] = new_records
+                print(f"Added new user {user_id} with {len(new_records)} records")
+                continue
 
-        merged = {
-            "id": new["id"],
-            "serial_number": new["serial_number"],
-            "date": new["date"],
-            "users": existing.get("users", {}).copy()
-        }
-        
-        for user_id, user_data in new.get("users", {}).items():
-            if user_id not in merged["users"]:
-                merged["users"][user_id] = user_data
-                print(f"Added new user {user_id}")
-            else:
-                existing_records = set(
-                    json.dumps(record, sort_keys=True) 
-                    for record in merged["users"][user_id].get("records", [])
-                )
-                        
-                new_records = [
-                    record for record in user_data.get("records", [])
-                    if json.dumps(record, sort_keys=True) not in existing_records
-                ]
-                        
-                if new_records:
-                    merged["users"][user_id]["records"].extend(new_records)
-                    merged["users"][user_id]["total_hours"] = str(
-                        float(merged["users"][user_id]["total_hours"]) + 
-                        float(user_data["total_hours"])
-                    )
-                
-        print(f"Final merged records: {len(merged['users'])} users")
+            existing_set = {
+                json.dumps(record, sort_keys=True) 
+                for record in merged[user_id]
+            }
+            
+            unique_records = [
+                record for record in new_records 
+                if json.dumps(record, sort_keys=True) not in existing_set
+            ]
+            
+            if unique_records:
+                merged[user_id].extend(unique_records)
+
+        print(f"Final merged records: {len(merged)} users")
         return merged
