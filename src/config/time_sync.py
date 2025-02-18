@@ -2,7 +2,6 @@ import ntplib
 from datetime import datetime
 import pytz
 from typing import Tuple, Optional
-from dotenv import load_dotenv
 import os
 
 class TimeSync:
@@ -29,10 +28,11 @@ class TimeSync:
 
         try:
             local_time = self._get_localized_time()
-            return self._format_date_time(local_time)
         except Exception as e:
             print(f"Error getting date/time: {str(e)}")
-            return None, None
+            local_time = self._get_local_time()
+            
+        return self._format_date_time(local_time)
 
     def _get_localized_time(self) -> datetime:
         client = ntplib.NTPClient()
@@ -46,9 +46,18 @@ class TimeSync:
         local_tz = pytz.timezone(self.timezone)
         
         return pytz.utc.localize(utc_time).astimezone(local_tz)
+    
+    def _get_local_time(self) -> datetime:
+        local_tz = pytz.timezone(self.timezone)
+        return datetime.now(local_tz)
 
     def _format_date_time(self, local_time: datetime) -> Tuple[str, str]:
         return (
             local_time.strftime("%Y-%m-%d"),
             local_time.strftime("%H:%M")
         )
+    
+# Example usage
+time_sync = TimeSync()
+date, time = time_sync.get_date_time()
+print(f"Date: {date}, Time: {time}")

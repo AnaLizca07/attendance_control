@@ -5,28 +5,43 @@ from dotenv import load_dotenv
 from config.zk_connector import ZKConnector
 from config.time_sync import TimeSync
 from controllers.AttendanceController import AttendanceController
-
+from services.NetworkRetryService import NetworkRetry
+from services.AttendanceRecoveryService import AttendanceRecovery
 
 class AttendanceService:
     def __init__(self):
         load_dotenv()
         self.execution_time = os.getenv('EXECUTION_TIME')
         print(f"Loaded EXECUTION_TIME: {self.execution_time}")
+        
         self.time_sync = TimeSync()
         self.connector = ZKConnector()
         self.controller = AttendanceController(self.connector)
-        
+        self.retry_manager = NetworkRetry()
+        self.attendance_task = AttendanceRecovery()
+
         if not self.execution_time:
             raise ValueError("EXECUTION_TIME not set in environment variables")
 
     def process_attendance_data(self) -> None:
+        """
+        Intenta procesar la asistencia, maneja errores de conexión
+        y delega a AttendanceRecovery si falla.
+        """
         try:
             print(f"\n{'='*50}")
             print("Initiating data collection...")
             print(f"\n{'='*50}")
+            
+            # Primero, procesar cualquier asistencia pendiente
+            self.attendance_task.process_attendance(self.controller.process_attendance)
+
+            # Luego, procesar la asistencia actual
             self.controller.process_attendance()
+
         except Exception as e:
-            self._handle_error(f"Error processing attendance: {str(e)}")
+            print(f"Error processing attendance: {str(e)}")
+            self.retry_manager.save_pending_execution(self.execution_time)  # Guardar como pendiente
 
     def should_execute(self, current_time: Optional[str]) -> bool:
         should_run = current_time == self.execution_time
@@ -63,6 +78,6 @@ class AttendanceService:
             except Exception as e:
                 self._handle_error(f"Unexpected error in main loop: {str(e)}")
                 time.sleep(30)  
-    
+                
     def _handle_error(self, error_message: str) -> None:
         print(f"Error: {error_message}")
