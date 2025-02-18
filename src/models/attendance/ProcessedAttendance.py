@@ -6,29 +6,22 @@ from models.device.DeviceInfo import DeviceInfo
 
 @dataclass
 class ProcessedAttendance:
-    device_id: str
     user_id: str
-    date: str
+    name: str
     records: List[Dict]
     total_hours: str
     status: AttendanceStatus
 
     @classmethod
     def create(cls, user_id: str, 
-               attendance_date: date_type, 
+               name: str,
                records: List[Dict], 
                total_hours: float, 
-               status: AttendanceStatus,
-               device_info: DeviceInfo) -> 'ProcessedAttendance':
-        
-        if not device_info:
-            raise ValueError("device_info cannot be None")
-            
-        return cls(
-            device_id=device_info.device_id,
-            user_id=str(user_id),
-            date=attendance_date.strftime("%Y-%m-%d"),
-            records=records,
-            total_hours=f"{total_hours:.2f}",
-            status=status
-        )
+               status: AttendanceStatus) -> Dict:
+        return {
+            "user_id": str(user_id),
+            "user_name": str(name),
+            "records": records,
+            "total_hours": f"{total_hours:.2f}",
+            "status": status.value
+        }
