@@ -28,6 +28,7 @@ class AttendanceProcessor:
                 self.device_info = self.device.get_device_info(conn)
                 if not self.device_info:
                     raise ValueError("Could not get device info")
+                print(f"Got device info with ID: {self.device_info.device_id}")
             
             attendance = conn.get_attendance()
             date_range = self._get_current_date_range()
@@ -49,12 +50,7 @@ class AttendanceProcessor:
             if not self.device_info:
                 raise ValueError("device_info is not available")
             
-            processed_data = {
-                "id": str(int(datetime.now().timestamp())),
-                "serial_number": self.device_info.description.serial_number,
-                "date": datetime.now().strftime("%Y-%m-%d"),
-                "users": {}
-            }
+            processed_data = {}
             
             for user_id, dates in attendance_by_user.items():
                 print(f"\nProcessing user_id: {user_id}")
@@ -65,15 +61,13 @@ class AttendanceProcessor:
                         user_id=str(user_id),
                         user_info=users_info[user_id]
                     )
-                    if user_records and isinstance(user_records, dict) and user_records.get('records'):
-                        processed_data["users"][user_id] = user_records
-                        print(f"Added records for user {user_id}")
-                    else:
-                        print(f"No valid records found for user {user_id}")
+                    if user_records:
+                        processed_data[user_id] = user_records
+                        print(f"Added {len(user_records)} records for user {user_id}")
                 else:
                     print(f"User {user_id} not found in users_info")
             
-            print(f"Final processed data contains {len(processed_data['users'])} users")
+            print(f"Final processed data contains {len(processed_data)} users")
             return processed_data
             
         except Exception as e:
@@ -81,47 +75,40 @@ class AttendanceProcessor:
             import traceback
             print(traceback.format_exc())
             return {}
-        
 
     def _process_single_user(self, dates: Dict, user_id: str, user_info: Dict) -> List[Dict]:
         try:
-            print(f"\nProcessing user {user_id} with {len(dates)} dates")
-            name = user_info.get('name', '') 
-
-            if not dates:
-                return {}
-
-            try:
-                # Procesar solo el primer día (ya que es asistencia diaria)
-                date, times = next(iter(sorted(dates.items())))
-                times.sort()
+            if not self.device_info:
+                raise ValueError("device_info is not available")
                 
+            processed_records = []
+            print(f"\nProcessing user {user_id} with {len(dates)} dates")
+            
+            for date, times in sorted(dates.items()):
+                times.sort()
                 attendance_records = self._create_attendance_records(times)
                 total_hours = AttendanceTimeCalculator.calculate_total_hours(times)
                 status = AttendanceStatus.COMPLETE if len(times) >= 2 else AttendanceStatus.INCOMPLETE
                 
-                processed_record = {
-                    "user_id": str(user_id),
-                    "user_name": name,
-                    "records": attendance_records,
-                    "total_hours": f"{total_hours:.2f}",
-                    "status": status.value
-                }
-                print(f"Successfully processed record for date {date}")
-                return processed_record
-                
-            except StopIteration:
-                print(f"No dates found for user {user_id}")
-                return {}
+                try:
+                    processed_record = ProcessedAttendance.create(
+                        user_id=user_id,
+                        attendance_date=date,
+                        records=attendance_records,
+                        total_hours=total_hours,
+                        status=status,
+                        device_info=self.device_info
+                    )
+                    processed_records.append(processed_record.__dict__)
+                    print(f"Successfully processed record for date {date}")
+                except Exception as e:
+                    print(f"Error processing record for date {date}: {e}")
             
-            except Exception as e:
-                print(f"Error processing record: {e}")
-                return {}
+            return processed_records
             
         except Exception as e:
             print(f"Error processing user {user_id}: {e}")
-            return {}
-
+            return []
     def organize_by_user(self, attendance_list: List) -> DefaultDict:
         attendance_by_user = defaultdict(lambda: defaultdict(list))
         

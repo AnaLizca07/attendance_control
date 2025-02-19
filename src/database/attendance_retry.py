@@ -18,7 +18,7 @@ class SQLiteDB:
                 )
             ''')
             conn.commit()
-
+    
     def get_connection(self):
         """Devuelve una conexión activa a la base de datos"""
         return sqlite3.connect(self.db_name)

@@ -1,8 +1,6 @@
 
 import json
-import logging
 from typing import Dict, List, Optional
-from zk.exception import ZKNetworkError
 from datetime import datetime
 from models.user.UserRepository import UserRepository
 from models.attendance.AttendanceProcessor import AttendanceProcessor
@@ -12,7 +10,6 @@ from controllers.FileHandler import AttendanceFileHandler
 from utils.to_JSON import ToJSON 
 from models.device.Device import Device
 from models.attendance.AttendanceProcessor import AttendanceProcessor
-from services.AttendanceRetry import AttendanceRetry
 
 class AttendanceController:
     def __init__(self, connector, device_controller: Optional[DeviceController] = None):
@@ -21,7 +18,6 @@ class AttendanceController:
         self.device_controller = device_controller or DeviceController(connector)
         self.view = ToJSON()
         self.device_info = None
-        self.attendance_retry = AttendanceRetry(self)
 
     def _ensure_device_info(self) -> None:
         if not self.device_info:
@@ -61,6 +57,7 @@ class AttendanceController:
             print(f"Error closing connection: {e}")
 
     def process_attendance(self) -> List:
+
         try:
             print("Starting attendance processing...")
             self._ensure_device_info()
@@ -96,24 +93,18 @@ class AttendanceController:
             print(f"\nTotal records: {len(filtered_attendance)}")
             return filtered_attendance
 
-        except (ConnectionError, ZKNetworkError) as e:
-            print(f"⚠️ Connection error: {e}")
-  # Reemplaza con datos reales
-
+        except ConnectionError as e:
+            print(f"Connection error: {e}")
+            print(f"Error type: {type(e)}")
+            import traceback
+            print(traceback.format_exc())
             return []
         except Exception as e:
             print(f"Error processing attendance: {str(e)}")
-            logging.error(f"⚠️ Connection failed: {str(e)}")
-            
-            # Guardar la asistencia como pendiente
-            self.attendance_retry.save_pending_record("Datos de asistencia fallida")
-
             return []
         finally:
             print("Closing connection...")
             self._close_connection()
-
-
 
     @staticmethod
     def _merge_records(existing: Dict, new: Dict) -> Dict:

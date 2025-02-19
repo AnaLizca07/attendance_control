@@ -1,6 +1,9 @@
 from services.AttendanceService import AttendanceService
+from database.attendance_retry import SQLiteDB
 
 def main():
+
+    
     try:
         service = AttendanceService()
         service.run()
