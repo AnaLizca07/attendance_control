@@ -7,11 +7,23 @@ import os
 class APIClient:
     def __init__(self):
         self.session = requests.Session()
+        self.token: Optional[str] = None
+        self.base_url = os.getenv('URL_BASE')
+
+        #Paths
+        self.token_path = os.getenv('TOKEN')
+        self.attendance_path = os.getenv('ATTENDANCE')
+        self.device_path = os.getenv('DEVICE')
+
+        #Credentials
+        self.email = os.getenv('LOGIN_EMAIL')
+        self.password = os.getenv('LOGIN_PASSWORD')
+
 
     def login(self, email:str, password: str) -> bool:
         try:
             response = self.session.post(
-                f"{os.getenv('URL_BASE')}{os.getenv('TOKEN')}", 
+                f"{self.base_url}{self.token_path}", 
                 json={
                     "email": email,
                     "password": password
@@ -20,11 +32,11 @@ class APIClient:
             response.raise_for_status()
 
             data = response.json()
-            self.token = data.get('token') #Validate the name with the postman collection when Luisa gives to me the project
+            self.token = data.get('token')
 
             if self.token:
                 self.session.headers.update({
-                    'X-CSRF-TOKEN' : {self.token}
+                    'X-CSRF-TOKEN' : self.token
                 })
                 print("Login successful")
                 return True
@@ -35,23 +47,26 @@ class APIClient:
         except requests.exceptions.RequestException as e:
             print(f"Login error: {str(e)}")
             return False
+        except Exception as e:
+            print(f"Unexpected error during login: {str(e)}")
+            return False
         
-    def send_attendance_data(self, attendance_data: Dict) -> bool:
-        if not self.token:
-            email = os.getenv('LOGIN_EMAIL')
-            password = os.getenv('LOGIN_PASSWORD')
+        
+    def ensure_athenticated(self) -> bool:
+        if self.token:
+            return True
+        
+        return self.login(self.email, self.password)
+    
 
-            if not email or not password:
-                print('Login credentials not found in enviroment variables')
-                return False
-            
-            if not self.login(email, password):
-                print("Automatic login failed.")
-                return False
-            
+    def send_attendance_data(self, attendance_data: Dict) -> bool:
+        if not self._ensure_authenticated():
+            return False  
+         
         try:
             response = self.session.post(
-                f"{os.getenv('URL_BASE')}{os.getenv('ATTENDANCE')}"
+                f"{self.base_url}{self.attendance_path}",
+                json=attendance_data
             )
             response.raise_for_status()
 
@@ -61,3 +76,24 @@ class APIClient:
         except requests.exceptions.RequestException as e:
             print(f"Error sending data: {str(e)}")
             return False
+        
+
+    def send_device_data(self, device_data: Dict) -> bool:
+        if not self._ensure_authenticated():
+            return False  
+         
+        try:
+            response = self.session.post(
+                f"{self.base_url}{self.device_path}",
+                json=device_data
+            )
+            response.raise_for_status()
+
+            print(f"Data sent successfully. Status code: {response.status_code}")
+            return True
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Error sending data: {str(e)}")
+            return False
+        
+        
