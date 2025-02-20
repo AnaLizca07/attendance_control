@@ -75,3 +75,8 @@
 - `future`: Provides compatibility between Python 2 and 3, allowing you to write code that works on both versions without major modifications.
 - `load-dotenv`: Similar to `python-dotenv`, it is used to load environment variables from a `.env` file, making it easier to configure projects without exposing credentials in the source code.
 - `zk`: A library related to handling biometric devices, similar to `pyzk`, allowing interaction with access control devices such as ZKTeco.
+
+- Delete cache
+   ```shell
+   Get-ChildItem -Path . -Directory -Filter "__pycache__" -Recurse | Remove-Item -Recurse -Force
+    ```
