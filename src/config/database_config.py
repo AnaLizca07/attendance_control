@@ -17,8 +17,23 @@ class DatabaseLogs:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS attendance_logs (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp TEXT NOT NULL
+                    timestamp TEXT NOT NULL,
+                    logs TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
                 )
             """)
             conn.commit()
 
+    def emit(self, record):
+        """Inserta un log en la base de datos."""
+        log_message = self.format(record)
+        self.cursor.execute("INSERT INTO logs (level, message) VALUES (%s, %s)", (record.levelname, log_message))
+        self.connection.commit()
+    
+    def close(self):
+        """Cierra la conexión con la base de datos."""
+        self.cursor.close()
+        self.connection.close()
+        super().close()
