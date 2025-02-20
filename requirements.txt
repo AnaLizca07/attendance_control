@@ -1,7 +1,10 @@
-ntplib  
 pip 
-pytz 
-pyzk    
-pyzmq 
 setuptools 
 wheel
+future
+load-dotenv
+ntplib
+python-dotenv
+pytz
+pyzk
+zk
