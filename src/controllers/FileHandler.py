@@ -8,7 +8,7 @@ from utils.FileNameSanitizer import FileNameSanitizer
     
 class DeviceFileManager:
     def __init__(self):
-        self.base_dir = Path(__file__).parent.parent / 'database'
+        self.base_dir = Path(__file__).parent.parent / 'data'
         self.device_dir = self.base_dir / 'device_info'
         self.ensure_directory()
         
@@ -51,6 +51,14 @@ class DeviceFileManager:
             raise
 
 class AttendanceFileHandler:
+    def __init__(self, filename: str):
+            self.base_dir = Path(__file__).parent.parent / 'data'
+            self.base_dir = self.base_dir / 'attandance_output'
+            self.ensure_directory()
+            self.filename = self.base_dir / filename
+
+    def ensure_directory(self) -> None:
+        self.base_dir.mkdir(parents=True, exist_ok=True)
 
     def read_existing_records(self) -> Dict:
         try:
@@ -61,6 +69,7 @@ class AttendanceFileHandler:
 
     def save_records(self, records: Dict) -> None:
         try:
+            self.ensure_directory()
             
             print(f"\nPreparing to save records...")
             print(f"Records structure: {type(records)}")

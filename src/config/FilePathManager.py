@@ -14,13 +14,13 @@ ZK_DEVICE = {
 
 class FilePathManager:
     def __init__(self, base_dir: Optional[str] = None):
-        # Obtener el directorio del script actual
+        # Get the data directory
         self.base_dir = base_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-        self.database_dir = os.path.join(self.base_dir, 'database')
+        self.database_dir = os.path.join(self.base_dir, 'data')
         self.output_dir = os.path.join(self.database_dir, 'attandance_output')
         self.device_dir = os.path.join(self.database_dir, 'device_info')
 
-        # Crear directorios si no existen
+        # Create directories if they do not exist
         for directory in [self.database_dir, self.output_dir, self.device_dir]:
             os.makedirs(directory, exist_ok=True)
 
