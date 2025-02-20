@@ -1,7 +1,7 @@
 import os
 from datetime import date
 from typing import Union, Optional
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 
 load_dotenv()
 
