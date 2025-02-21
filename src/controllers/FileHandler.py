@@ -47,7 +47,7 @@ class DeviceFileManager:
             filepath.parent.mkdir(parents=True, exist_ok=True)
             
             ToJSON().save_json_output(json_output, str(filepath))
-            self.log.debug(f"\nDevice info saved to: {filepath}")
+            self.log.debug(f"Device info saved to: {filepath}")
             
         except Exception as e:
             self.log.error(f"Error saving device info: {e}")
