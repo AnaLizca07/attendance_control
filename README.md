@@ -26,6 +26,10 @@
 - Ensure **Python >=3.11.3** is installed on the system.
 - Ensure **pip 22.3.1** is installed on the system.
 
+### Recommended extensions
+- **SQLite Viewer** | id: qwtel.sqlite-viewer | [Link](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer)
+   > It is a SQLite database viewer for VS Code, fast and without native dependencies. It is read-only, loads files smaller than 2GB and does not execute queries.
+
 ### Installation
 1. Clone the repository:
    ```bash
@@ -75,7 +79,7 @@
 - `future`: Provides compatibility between Python 2 and 3, allowing you to write code that works on both versions without major modifications.
 - `load-dotenv`: Similar to `python-dotenv`, it is used to load environment variables from a `.env` file, making it easier to configure projects without exposing credentials in the source code.
 - `zk`: A library related to handling biometric devices, similar to `pyzk`, allowing interaction with access control devices such as ZKTeco.
-
+---
 - Delete cache
    ```shell
    Get-ChildItem -Path . -Directory -Filter "__pycache__" -Recurse | Remove-Item -Recurse -Force
