@@ -1,5 +1,6 @@
 
 import json
+import time
 import traceback
 from typing import Dict, List, Optional
 from datetime import datetime
@@ -60,53 +61,52 @@ class AttendanceController:
             self.log.error(f"Error closing connection: {e}")
 
     def process_attendance(self) -> List:
+        retry_interval = 60  # Intervalo entre intentos (en segundos)
 
-        try:
-            self.log.debug("Starting attendance processing...")
-            self._ensure_device_info()
-            
-            self.log.debug("Connecting to device...")
-            conn = self.connector.connect()
-            if not conn:
-                raise ConnectionError("Connection failed")
+        while True:
+            try:
+                self.log.debug("Starting attendance processing...")
+                self._ensure_device_info()
+                
+                self.log.debug("Connecting to device...")
+                conn = self.connector.connect()
+                if not conn:
+                    raise ConnectionError("Connection failed")
 
-            self.log.debug("Getting attendance data...")
-            users_info, filtered_attendance = self._get_attendance_data(conn)
-            
-            if not filtered_attendance:
-                self.log.error("Record dont found")
-                return []
+                self.log.debug("Getting attendance data...")
+                users_info, filtered_attendance = self._get_attendance_data(conn)
+                
+                if not filtered_attendance:
+                    self.log.warning("No attendance records found. Retrying in 60 seconds...")
+                    time.sleep(retry_interval)
+                    continue  # Volver a intentar
 
-            self.log.debug("Processing records...") 
-            file_handler = AttendanceFileHandler(
-                FilePathManager().get_json_filename(datetime.now().date())
-            )
+                self.log.debug("Processing records...") 
+                file_handler = AttendanceFileHandler(
+                    FilePathManager().get_json_filename(datetime.now().date())
+                )
 
-            processor = AttendanceProcessor(conn, device=Device(),
-                device_info=self.device_info)
-            attendance_records = processor.process_user_attendance(users_info, filtered_attendance)
-            
-            self.log.debug(f"Found {len(attendance_records)} records")
-            existing_records = file_handler.read_existing_records()
-            merged_records = self._merge_records(existing_records, attendance_records)
-            
-            self.log.info("Saving records...")
-            file_handler.save_records(merged_records)
-            
-            self.log.info(f"Total records: {len(filtered_attendance)}")
-            return filtered_attendance
+                processor = AttendanceProcessor(conn, device=Device(), device_info=self.device_info)
+                attendance_records = processor.process_user_attendance(users_info, filtered_attendance)
+                
+                self.log.debug(f"Found {len(attendance_records)} records")
+                existing_records = file_handler.read_existing_records()
+                merged_records = self._merge_records(existing_records, attendance_records)
+                
+                self.log.info("Saving records...")
+                file_handler.save_records(merged_records)
+                
+                self.log.info(f"Total records: {len(filtered_attendance)}")
+                return filtered_attendance  # Si todo va bien, finaliza la función
 
-        except ConnectionError as e:
-            self.log.error(f"Connection error: {e}")
-            self.log.error(f"Error type: {type(e)}")
-            self.log.error(traceback.format_exc())
-            return []
-        except Exception as e:
-            self.log.error(f"Error processing attendance: {str(e)}")
-            return []
-        finally:
-            self.log.error("Closing connection...")
-            self._close_connection()
+            except ConnectionError as e:
+                self.log.error(f"Connection error: {e}")
+                self.log.error(traceback.format_exc())
+            except Exception as e:
+                self.log.error(f"Error processing attendance: {str(e)}")
+
+            self.log.warning(f"Retrying in {retry_interval} seconds...")
+            time.sleep(retry_interval)  # Espera antes de volver a intentar
 
     @staticmethod
     def _merge_records(existing: Dict, new: Dict) -> Dict:
