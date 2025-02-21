@@ -2,6 +2,7 @@ from typing import Optional
 from models.device.Device import Device
 from controllers.FileHandler import DeviceFileManager, DeviceInfo
 from models.device.DeviceValidator import DeviceDataValidator
+from config.Logging import Logger
 
 
 class DeviceController:
@@ -67,5 +68,6 @@ class DeviceController:
                 
     @staticmethod
     def _log_error(message: str, error: Exception) -> None:
+        log = Logger.get_logger()
         """Centralizes error logging."""
-        print(f"Error: {message} - {str(error)}")
+        log.error(f"Error: {message} - {str(error)}")

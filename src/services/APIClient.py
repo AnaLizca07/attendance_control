@@ -2,10 +2,12 @@ import requests
 from typing import Dict, Optional
 import json
 from datetime import datetime
+from config.Logging import Logger
 import os
 
 class APIClient:
     def __init__(self):
+        self.log = Logger.get_logger()
         self.session = requests.Session()
         self.token: Optional[str] = None
         self.base_url = os.getenv('URL_BASE')
@@ -38,17 +40,17 @@ class APIClient:
                 self.session.headers.update({
                     'X-CSRF-TOKEN' : self.token
                 })
-                print("Login successful")
+                self.log.debug("Login successful")
                 return True
 
-            print("Login failed: No token received")
+            self.log.error("Login failed: No token received")
             return False
 
         except requests.exceptions.RequestException as e:
-            print(f"Login error: {str(e)}")
+            self.log.error(f"Login error: {str(e)}")
             return False
         except Exception as e:
-            print(f"Unexpected error during login: {str(e)}")
+            self.log.error(f"Unexpected error during login: {str(e)}")
             return False
         
         
@@ -70,11 +72,11 @@ class APIClient:
             )
             response.raise_for_status()
 
-            print(f"Data sent successfully. Status code: {response.status_code}")
+            self.log.info(f"Data sent successfully. Status code: {response.status_code}")
             return True
         
         except requests.exceptions.RequestException as e:
-            print(f"Error sending data: {str(e)}")
+            self.log.error(f"Error sending data: {str(e)}")
             return False
         
 
@@ -89,11 +91,11 @@ class APIClient:
             )
             response.raise_for_status()
 
-            print(f"Data sent successfully. Status code: {response.status_code}")
+            self.log.info(f"Data sent successfully. Status code: {response.status_code}")
             return True
         
         except requests.exceptions.RequestException as e:
-            print(f"Error sending data: {str(e)}")
+            self.log.error(f"Error sending data: {str(e)}")
             return False
         
         

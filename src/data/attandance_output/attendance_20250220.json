@@ -1,5 +1,5 @@
 {
-    "id": "1740063388",
+    "id": "1740070611",
     "serial_number": "A8ME211660181",
     "date": "2025-02-20",
     "users": {
@@ -106,10 +106,14 @@
                 {
                     "hour": "07:14:13",
                     "type": 1
+                },
+                {
+                    "hour": "11:53:45",
+                    "type": 0
                 }
             ],
-            "total_hours": "0.00",
-            "status": 0
+            "total_hours": "4.66",
+            "status": 1
         },
         "15": {
             "user_id": "15",
@@ -118,10 +122,14 @@
                 {
                     "hour": "07:15:47",
                     "type": 1
+                },
+                {
+                    "hour": "11:18:03",
+                    "type": 0
                 }
             ],
-            "total_hours": "0.00",
-            "status": 0
+            "total_hours": "4.04",
+            "status": 1
         },
         "24": {
             "user_id": "24",
@@ -142,10 +150,14 @@
                 {
                     "hour": "07:20:43",
                     "type": 1
+                },
+                {
+                    "hour": "11:53:03",
+                    "type": 0
                 }
             ],
-            "total_hours": "0.00",
-            "status": 0
+            "total_hours": "4.54",
+            "status": 1
         },
         "1": {
             "user_id": "1",

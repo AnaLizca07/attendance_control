@@ -2,10 +2,12 @@ from typing import Optional
 from models.device.DeviceValidator import DeviceDataValidator
 from models.device.DeviceInfo import DeviceInfo
 from models.device.DeviceDescription import DeviceDescription
+from config.Logging import Logger
 
 class Device:
     def __init__(self, data_validator: Optional[DeviceDataValidator] = None):
         self.validator = data_validator or DeviceDataValidator()
+        self.log = Logger.get_logger()
 
     def get_device_info(self, conn) -> Optional[DeviceInfo]:
         try:
@@ -40,4 +42,4 @@ class Device:
             return None
 
     def _handle_error(self, error_message: str) -> None:
-        print(error_message)
+        self.log.error(error_message)
