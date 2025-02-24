@@ -3,6 +3,7 @@ from datetime import datetime
 import pytz
 from typing import Tuple, Optional
 import os
+from config.Logging import Logger
 
 class TimeSync:
     def __init__(self):
@@ -11,6 +12,7 @@ class TimeSync:
         DEFAULT_NTP_VERSION = 3
         DEFAULT_TIMEOUT = 5
 
+        self.logger = Logger().get_logger()
         self.ntp_server = os.getenv('NTP_SERVER', DEFAULT_NTP_SERVER)
         self.timezone = os.getenv('TIMEZONE', DEFAULT_TIMEZONE)
         
@@ -29,7 +31,7 @@ class TimeSync:
         try:
             local_time = self._get_localized_time()
         except Exception as e:
-            print(f"Error getting date/time: {str(e)}")
+            self.logger.error(f"Error getting date/time: {str(e)}")
             local_time = self._get_local_time()
             
         return self._format_date_time(local_time)
@@ -56,8 +58,3 @@ class TimeSync:
             local_time.strftime("%Y-%m-%d"),
             local_time.strftime("%H:%M")
         )
-    
-# Example usage
-time_sync = TimeSync()
-date, time = time_sync.get_date_time()
-print(f"Date: {date}, Time: {time}")

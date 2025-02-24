@@ -1,0 +1,179 @@
+{
+    "id": "1740176852",
+    "serial_number": "A8ME211660181",
+    "date": "2025-02-21",
+    "users": {
+        "9": {
+            "user_id": "9",
+            "user_name": "Felipe Castro",
+            "records": [
+                {
+                    "hour": "06:58:05",
+                    "type": 1
+                },
+                {
+                    "hour": "12:33:13",
+                    "type": 2
+                },
+                {
+                    "hour": "14:00:01",
+                    "type": 0
+                }
+            ],
+            "total_hours": "7.03",
+            "status": 1
+        },
+        "5": {
+            "user_id": "5",
+            "user_name": "Mfernanda Lpez",
+            "records": [
+                {
+                    "hour": "07:01:35",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "4": {
+            "user_id": "4",
+            "user_name": "Dj Arce",
+            "records": [
+                {
+                    "hour": "07:06:47",
+                    "type": 1
+                },
+                {
+                    "hour": "07:28:05",
+                    "type": 2
+                },
+                {
+                    "hour": "13:35:35",
+                    "type": 0
+                }
+            ],
+            "total_hours": "6.48",
+            "status": 1
+        },
+        "21": {
+            "user_id": "21",
+            "user_name": "Victor Rojas",
+            "records": [
+                {
+                    "hour": "07:06:57",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "15": {
+            "user_id": "15",
+            "user_name": "Laura B",
+            "records": [
+                {
+                    "hour": "07:09:39",
+                    "type": 1
+                },
+                {
+                    "hour": "12:35:01",
+                    "type": 0
+                }
+            ],
+            "total_hours": "5.42",
+            "status": 1
+        },
+        "12": {
+            "user_id": "12",
+            "user_name": "Santiago Vega",
+            "records": [
+                {
+                    "hour": "07:10:44",
+                    "type": 1
+                },
+                {
+                    "hour": "12:15:13",
+                    "type": 2
+                },
+                {
+                    "hour": "14:03:17",
+                    "type": 2
+                },
+                {
+                    "hour": "14:03:18",
+                    "type": 0
+                }
+            ],
+            "total_hours": "6.88",
+            "status": 1
+        },
+        "25": {
+            "user_id": "25",
+            "user_name": "Luisa 25",
+            "records": [
+                {
+                    "hour": "07:15:40",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "24": {
+            "user_id": "24",
+            "user_name": "David Ros",
+            "records": [
+                {
+                    "hour": "07:15:47",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "27": {
+            "user_id": "27",
+            "user_name": "Sergio Chica",
+            "records": [
+                {
+                    "hour": "07:19:06",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "1": {
+            "user_id": "1",
+            "user_name": "German Huertas",
+            "records": [
+                {
+                    "hour": "07:22:38",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "3": {
+            "user_id": "3",
+            "user_name": "Geovany C",
+            "records": [
+                {
+                    "hour": "07:39:21",
+                    "type": 1
+                },
+                {
+                    "hour": "12:51:51",
+                    "type": 2
+                },
+                {
+                    "hour": "14:21:47",
+                    "type": 0
+                }
+            ],
+            "total_hours": "6.71",
+            "status": 1
+        }
+    }
+}

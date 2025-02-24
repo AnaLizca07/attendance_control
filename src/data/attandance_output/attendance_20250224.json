@@ -1,0 +1,151 @@
+{
+    "id": "1740403446",
+    "serial_number": "A8ME211660181",
+    "date": "2025-02-24",
+    "users": {
+        "9": {
+            "user_id": "9",
+            "user_name": "Felipe Castro",
+            "records": [
+                {
+                    "hour": "06:58:53",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "5": {
+            "user_id": "5",
+            "user_name": "Mfernanda Lpez",
+            "records": [
+                {
+                    "hour": "07:02:43",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "21": {
+            "user_id": "21",
+            "user_name": "Victor Rojas",
+            "records": [
+                {
+                    "hour": "07:04:03",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "2": {
+            "user_id": "2",
+            "user_name": "Daruin Herrera",
+            "records": [
+                {
+                    "hour": "07:05:51",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "3": {
+            "user_id": "3",
+            "user_name": "Geovany C",
+            "records": [
+                {
+                    "hour": "07:09:42",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "15": {
+            "user_id": "15",
+            "user_name": "Laura B",
+            "records": [
+                {
+                    "hour": "07:13:12",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "12": {
+            "user_id": "12",
+            "user_name": "Santiago Vega",
+            "records": [
+                {
+                    "hour": "07:13:15",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "28": {
+            "user_id": "28",
+            "user_name": "Ana Lizcano",
+            "records": [
+                {
+                    "hour": "07:14:35",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "25": {
+            "user_id": "25",
+            "user_name": "Luisa 25",
+            "records": [
+                {
+                    "hour": "07:14:43",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "24": {
+            "user_id": "24",
+            "user_name": "David Ros",
+            "records": [
+                {
+                    "hour": "07:15:57",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "4": {
+            "user_id": "4",
+            "user_name": "Dj Arce",
+            "records": [
+                {
+                    "hour": "07:24:42",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        },
+        "1": {
+            "user_id": "1",
+            "user_name": "German Huertas",
+            "records": [
+                {
+                    "hour": "07:26:15",
+                    "type": 1
+                }
+            ],
+            "total_hours": "0.00",
+            "status": 0
+        }
+    }
+}

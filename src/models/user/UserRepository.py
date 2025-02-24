@@ -1,10 +1,12 @@
 from typing import Dict, List
 from models.user.UserInfo import UserInfo
 from models.user.UserPrivilege import UserPrivilege
+from config.Logging import Logger
 
 class UserRepository:
     def __init__(self, connector):
         self.connector = connector
+        self.log = Logger.get_logger()
     
     def get_users_info(self) -> Dict[int, Dict]:
         try:
@@ -39,4 +41,4 @@ class UserRepository:
         )
     
     def _handle_error(self, error_message: str) -> None:
-        print(error_message) 
+        self.log.error(error_message) 
