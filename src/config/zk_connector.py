@@ -1,5 +1,7 @@
 from zk import ZK
+import traceback
 from dotenv import load_dotenv
+from config.Logging import Logger
 import os
 
 class ZKConnector:
@@ -11,6 +13,7 @@ class ZKConnector:
             timeout=int(os.getenv('ZK_DEVICE_TIMEOUT', '5')),
             password=os.getenv('ZK_DEVICE_PASSWORD', '0')
         )
+        self.log = Logger.get_logger()
         self.conn = None
 
     def connect(self):
@@ -18,16 +21,15 @@ class ZKConnector:
             if not self.conn:
                 self.conn = self.zk.connect()
                 if self.conn:
-                    print("Successfully connected to device")
+                    self.log.debug("Successfully connected to device")
                     self.conn.disable_device()
                 else:
-                   print("Connection failed") 
+                   self.log.error("Connection failed") 
             return self.conn
         except Exception as e:
-            print(f"Error connecting to device: {e}")
-            print(f"Error type: {type(e)}")
-            import traceback
-            print(traceback.format_exc())
+            self.log.error(f"Error connecting to device: {e}")
+            self.log.error(f"Error type: {type(e)}")
+            self.log.error(traceback.format_exc())
             return None
 
     def disconnect(self):
@@ -37,4 +39,4 @@ class ZKConnector:
                 self.conn.disconnect()
                 self.conn = None
         except Exception as e:
-            print(f"Error disconnecting: {e}")
+            self.log.error(f"Error disconnecting: {e}")

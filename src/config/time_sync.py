@@ -2,8 +2,8 @@ import ntplib
 from datetime import datetime
 import pytz
 from typing import Tuple, Optional
-from dotenv import load_dotenv
 import os
+from config.Logging import Logger
 
 class TimeSync:
     def __init__(self):
@@ -12,6 +12,7 @@ class TimeSync:
         DEFAULT_NTP_VERSION = 3
         DEFAULT_TIMEOUT = 5
 
+        self.logger = Logger().get_logger()
         self.ntp_server = os.getenv('NTP_SERVER', DEFAULT_NTP_SERVER)
         self.timezone = os.getenv('TIMEZONE', DEFAULT_TIMEZONE)
         
@@ -29,10 +30,11 @@ class TimeSync:
 
         try:
             local_time = self._get_localized_time()
-            return self._format_date_time(local_time)
         except Exception as e:
-            print(f"Error getting date/time: {str(e)}")
-            return None, None
+            self.logger.error(f"Error getting date/time: {str(e)}")
+            local_time = self._get_local_time()
+            
+        return self._format_date_time(local_time)
 
     def _get_localized_time(self) -> datetime:
         client = ntplib.NTPClient()
@@ -46,6 +48,10 @@ class TimeSync:
         local_tz = pytz.timezone(self.timezone)
         
         return pytz.utc.localize(utc_time).astimezone(local_tz)
+    
+    def _get_local_time(self) -> datetime:
+        local_tz = pytz.timezone(self.timezone)
+        return datetime.now(local_tz)
 
     def _format_date_time(self, local_time: datetime) -> Tuple[str, str]:
         return (
