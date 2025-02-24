@@ -13,7 +13,27 @@ ZK_DEVICE = {
 }
 
 class FilePathManager:
+    """
+    Class that manages file paths for the application.
+    
+    This utility handles directory creation and standardized file naming
+    for attendance records and device information files.
+    
+    Attributes:
+        base_dir (str): Base directory for the application.
+        database_dir (str): Directory for all data files.
+        output_dir (str): Directory for attendance output files.
+        device_dir (str): Directory for device information files.
+    """
+
     def __init__(self, base_dir: Optional[str] = None):
+        """
+        Initializes the file path manager and creates required directories.
+        
+        Args:
+            base_dir (Optional[str]): Custom base directory path. If None, uses the
+                                      parent directory of the current file location.
+        """
         # Get the data directory
         self.base_dir = base_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
         self.database_dir = os.path.join(self.base_dir, 'data')
@@ -25,6 +45,23 @@ class FilePathManager:
             os.makedirs(directory, exist_ok=True)
 
     def get_json_filename(self, identifier: Union[date, str], file_type: str = 'attendance') -> str:
+        """
+        Generates standardized file paths based on an identifier and file type.
+        
+        The method handles two types of identifiers:
+        - date objects: Converted to YYYYMMDD format and saved in the output directory
+        - strings: Sanitized to ensure filesystem safety and saved in the device directory
+        
+        Args:
+            identifier (Union[date, str]): Date or string to use in the filename.
+            file_type (str): Type of file (defaults to 'attendance').
+            
+        Returns:
+            str: Full path to the JSON file.
+            
+        Raises:
+            ValueError: If the identifier is empty.
+        """
         if not identifier:
             raise ValueError("empty identifier")
         
