@@ -8,11 +8,12 @@ from models.user.UserRepository import UserRepository
 from models.attendance.AttendanceProcessor import AttendanceProcessor
 from config.FilePathManager import FilePathManager
 from controllers.DeviceController import DeviceController
-from controllers.FileHandler import AttendanceFileHandler
+from controllers.FileHandler import AttendanceFileHandler, DeviceFileManager
 from utils.to_JSON import ToJSON 
 from models.device.Device import Device
 from models.attendance.AttendanceProcessor import AttendanceProcessor
 from config.Logging import Logger
+from services.APIClient import APIClient
 
 class AttendanceController:
     def __init__(self, connector, device_controller: Optional[DeviceController] = None):
@@ -22,22 +23,39 @@ class AttendanceController:
         self.view = ToJSON()
         self.device_info = None
         self.log = Logger().get_logger()
+        self.device_file_manager = DeviceFileManager()
+        self.api_client = APIClient()
 
     def _ensure_device_info(self) -> None:
         if not self.device_info:
             self.log.debug("Fetching device information...")
             self.device_info = self.device_controller.fetch_device_info()  # Use fetch_device_info directly
+
             if self.device_info:
                 self.log.debug("Device information saved successfully")
+                self._send_device_info()
             else:
                 self.log.error("Failed to save device information")
                 raise ValueError("Could not get device info")
+
+    def _send_device_info(self) -> None:
+        try:
+            device_file = self.device_file_manager.get_device_filepath(self.device_info.device_name)
+            with open(device_file, 'r') as f:
+                device_data = json.load(f)
+
+            if self.api_client.send_device_data(device_data):
+                self.log.info("Device data sent successfully")
+            else:
+                self.log.error("Failed to send device data")
+
+        except Exception as e:
+            self.log.error(f"Error sending device data to API: {str(e)}")
 
     def _get_attendance_data(self, conn) -> tuple:
         user_repo = UserRepository(self.connector)
         users_info = user_repo.get_users_info()
         
-        # Asegurarnos de que tengamos la info del dispositivo
         if not self.device_info:
             self.log.debug("Getting device info in controller...")
             self.device_info = self.device_controller.get_device_info()
@@ -54,14 +72,13 @@ class AttendanceController:
         return users_info, filtered_attendance
 
     def _close_connection(self) -> None:
-
         try:
             self.connector.disconnect()
         except Exception as e:
             self.log.error(f"Error closing connection: {e}")
 
     def process_attendance(self) -> List:
-        retry_interval = 60  # Intervalo entre intentos (en segundos)
+        retry_interval = 60
 
         while True:
             try:
@@ -79,7 +96,7 @@ class AttendanceController:
                 if not filtered_attendance:
                     self.log.warning("No attendance records found. Retrying in 60 seconds...")
                     time.sleep(retry_interval)
-                    continue  # Volver a intentar
+                    continue 
 
                 self.log.debug("Processing records...") 
                 file_handler = AttendanceFileHandler(
@@ -95,9 +112,11 @@ class AttendanceController:
                 
                 self.log.info("Saving records...")
                 file_handler.save_records(merged_records)
+
+                self._send_attendance(file_handler.filename)
                 
                 self.log.info(f"Total records: {len(filtered_attendance)}")
-                return filtered_attendance  # Si todo va bien, finaliza la función
+                return filtered_attendance 
 
             except ConnectionError as e:
                 self.log.error(f"Connection error: {e}")
@@ -106,7 +125,21 @@ class AttendanceController:
                 self.log.error(f"Error processing attendance: {str(e)}")
 
             self.log.warning(f"Retrying in {retry_interval} seconds...")
-            time.sleep(retry_interval)  # Espera antes de volver a intentar
+            time.sleep(retry_interval) 
+
+    def _send_attendance(self, filename: str) -> None:
+        try:
+                    with open(filename, 'r') as f:
+                        attendance_data = json.load(f)
+
+                    if self.api_client.send_attendance_data(attendance_data):
+                        self.log.info("Attendance data sent successfully")
+                    else:
+                        self.log.error("Failed to send attendance data")
+
+        except Exception as e:
+            self.log.error(f"Error sending attendance data to API: {str(e)}")
+
 
     @staticmethod
     def _merge_records(existing: Dict, new: Dict) -> Dict:
