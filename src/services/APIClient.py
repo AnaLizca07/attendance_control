@@ -22,23 +22,26 @@ class APIClient:
         self.password = os.getenv('LOGIN_PASSWORD')
 
 
-    def login(self, email:str, password: str) -> bool:
+    def login(self, email: str, password: str) -> bool:
         try:
+
+            auth_headers = {
+                'email': email,
+                'password': password
+            }
+            
             response = self.session.post(
-                f"{self.base_url}{self.token_path}", 
-                json={
-                    "email": email,
-                    "password": password
-                }
+                f"{self.base_url}{self.token_path}",
+                headers=auth_headers
             )
             response.raise_for_status()
 
             data = response.json()
-            self.token = data.get('token')
+            self.token = data.get('hash')
 
             if self.token:
                 self.session.headers.update({
-                    'X-CSRF-TOKEN' : self.token
+                    'X-CSRF-TOKEN': self.token
                 })
                 self.log.debug("Login successful")
                 return True
@@ -52,7 +55,6 @@ class APIClient:
         except Exception as e:
             self.log.error(f"Unexpected error during login: {str(e)}")
             return False
-        
         
     def ensure_athenticated(self) -> bool:
         if self.token:
